@@ -41,69 +41,95 @@ for each wear category.</p>
 ```python
 from collections import defaultdict
 from itertools import combinations
-# Function to generate candidate k-item sequences
+import matplotlib.pyplot as plt
+
 def generate_candidates(dataset, k):
+    c=defaultdict(int)
+    for seq in dataset:
+        for comb in combinations(seq,k):
+            c[comb]+=1
+        for item,sup in c.items():
+            if sup>=min_support:
+                return{item:sup}
 
-
-    /WRITE YOUR CODE HERE/
-
-
-#Function to perform GSP algorithm
 def gsp(dataset, min_support):
+    fp={}
+    k=1
+    while True:
+        c=generate_candidates(dataset,k)
+        if not c:
+            break
+        k+=1
+        fp.update(c)
+    return fp
+  
 
-
-  /WRITE YOUR CODE HERE/
-
-
-#Example dataset for each category
+# Example dataset for Top Wear
 top_wear_data = [
- ["blouse", "t-shirt", "tank_top"],
- ["hoodie", "sweater", "top"],["hoodie"],["hoodie","sweater"]
- #Add more sequences for top wear
+    ["blouse", "t-shirt", "tank_top"],
+    ["hoodie", "sweater", "top"],
+    ["hoodie"],
+    ["hoodie", "sweater"]
 ]
+
+# Example dataset for Bottom Wear
 bottom_wear_data = [
- ["jeans", "trousers", "shorts"],
- ["leggings", "skirt", "chinos"],
- # Add more sequences for bottom wear
+    ["jeans", "trousers", "shorts"],
+    ["leggings", "skirt", "chinos"],
+    ["jeans", "shorts"],
+    ["trousers", "shorts"]
 ]
+
+# Example dataset for Party Wear
 party_wear_data = [
- ["cocktail_dress", "evening_gown", "blazer"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress"],["party_dress"],
- # Add more sequences for party wear
+    ["cocktail_dress", "evening_gown", "blazer"],
+    ["party_dress", "formal_dress", "suit"],
+    ["party_dress", "formal_dress", "suit"],
+    ["party_dress", "formal_dress", "suit"],
+    ["party_dress", "formal_dress", "suit"],
+    ["party_dress"],
+    ["party_dress"]
 ]
-#Minimum support threshold
+
+# Minimum support threshold
 min_support = 2
-#Perform GSP algorithm for each category
+
+# Perform GSP algorithm for each category
 top_wear_result = gsp(top_wear_data, min_support)
 bottom_wear_result = gsp(bottom_wear_data, min_support)
 party_wear_result = gsp(party_wear_data, min_support)
-#Output the frequent sequential patterns for each category
+
+# Output the frequent sequential patterns for each category
 print("Frequent Sequential Patterns - Top Wear:")
+
 if top_wear_result:
- for pattern, support in top_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
+    for pattern, support in top_wear_result.items():
+        print(f"Pattern: {pattern}, Support: {support}")
 else:
- print("No frequent sequential patterns found in Top Wear.")
+    print("No frequent sequential patterns found in Top Wear.")
+
+
 print("\nFrequent Sequential Patterns - Bottom Wear:")
+
 if bottom_wear_result:
- for pattern, support in bottom_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
+    for pattern, support in bottom_wear_result.items():
+        print(f"Pattern: {pattern}, Support: {support}")
 else:
- print("No frequent sequential patterns found in Bottom Wear.")
+    print("No frequent sequential patterns found in Bottom Wear.")
+
+
 print("\nFrequent Sequential Patterns - Party Wear:")
+
 if party_wear_result:
- for pattern, support in party_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
+    for pattern, support in party_wear_result.items():
+        print(f"Pattern: {pattern}, Support: {support}")
 else:
- print("No frequent sequential patterns found in Party Wear.")
+    print("No frequent sequential patterns found in Party Wear.")
 ```
 ### Output:
 
-<img width="689" height="392" alt="image" src="https://github.com/user-attachments/assets/34da4250-e727-4576-853d-4acfdd01ca1e" />
+<img width="889" height="275" alt="AdobeExpressPhotos_59da666330ed470f8bdf8018f32f058c_CopyEdited" src="https://github.com/user-attachments/assets/15961f61-df69-4ddc-8fdc-bf96f44d8cec" />
+
 
 
 ### Visualization:
@@ -134,9 +160,10 @@ visualize_patterns_line(party_wear_result, 'Party Wear')
 ```
 ### Output:
 
-<img width="1143" height="626" alt="image" src="https://github.com/user-attachments/assets/9c2131e5-1916-4dda-bd64-5a26334e0a53" />
-<img width="1156" height="671" alt="image" src="https://github.com/user-attachments/assets/4f0d7587-5f0c-4449-8467-3d7f928bd099" />
-<img width="1157" height="661" alt="image" src="https://github.com/user-attachments/assets/ecb36bef-6ea5-4e73-b6bc-9e8867a00764" />
+<img width="1126" height="662" alt="image" src="https://github.com/user-attachments/assets/ab7e0401-23e8-4097-b9fc-984f31fdbc9a" />
+<img width="1171" height="672" alt="image" src="https://github.com/user-attachments/assets/7bb6ab1e-9528-4531-a6fe-8ec5030cc4ff" />
+<img width="1128" height="649" alt="image" src="https://github.com/user-attachments/assets/97f7f207-ea1e-4cc9-aae3-4dceb0f19902" />
+
 
 
 ### Result:
